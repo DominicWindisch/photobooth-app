@@ -111,7 +111,17 @@ class GroupUiSettings(BaseModel):
         description="Gallery buttons additional CSS to reposition, theme, etc..",
     )
 
+    gallery_button_icon_style: str = Field(
+        default="left: 5vw",
+        description="Gallery button icons additional CSS to reposition, theme, etc..",
+    )
+
     action_button_style: str = Field(
         default="bottom: 1vw",
         description="Action buttons (take photo, take animation, etc.) additional CSS to reposition, theme, etc..",
+    )
+
+    action_button_icon_style: str = Field(
+        default="bottom: 1vw",
+        description="Action button icons (take photo, take animation, etc.) additional CSS to reposition, theme, etc..",
     )
