@@ -110,3 +110,8 @@ class GroupUiSettings(BaseModel):
         default="left: 5vw",
         description="Gallery buttons additional CSS to reposition, theme, etc..",
     )
+
+    action_button_style: str = Field(
+        default="bottom: 1vw",
+        description="Action buttons (take photo, take animation, etc.) additional CSS to reposition, theme, etc..",
+    )
