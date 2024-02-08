@@ -87,6 +87,16 @@ class GroupUiSettings(BaseModel):
         description="Show print button for items in gallery.",
     )
 
+    gallery_show_image_number: bool = Field(
+        default=True,
+        description="Show image number in gallery title bar.",
+    )
+
+    gallery_show_filename: bool = Field(
+        default=False,
+        description="Show image file name in gallery title bar.",
+    )
+
     TAKEPIC_MSG_TEXT: str = Field(default="😃", description="Message to display at the end of the capture countdown.")
 
     PRIMARY_COLOR: str = Field(
@@ -107,21 +117,31 @@ class GroupUiSettings(BaseModel):
     )
 
     gallery_button_style: str = Field(
-        default="left: 5vw",
+        default="left: 6.7vw; top: 1.5vw; font-size: 3.6vh; height: 8vh; border-radius: 2vh;",
         description="Gallery buttons additional CSS to reposition, theme, etc..",
     )
 
     gallery_button_icon_style: str = Field(
-        default="left: 5vw",
+        default="font-size: 6.5vh;",
         description="Gallery button icons additional CSS to reposition, theme, etc..",
     )
 
     action_button_style: str = Field(
-        default="bottom: 1vw",
+        default="bottom: 1vw; aspect-ratio:1; height:21vh; font-size:5vh; margin: 0vh 0.5vw; border-radius: 2vh;",
         description="Action buttons (take photo, take animation, etc.) additional CSS to reposition, theme, etc..",
     )
 
     action_button_icon_style: str = Field(
-        default="bottom: 1vw",
+        default="font-size: 13vh;",
         description="Action button icons (take photo, take animation, etc.) additional CSS to reposition, theme, etc..",
+    )
+
+    toolbar_style: str = Field(
+        default="font-size:1.5vh;",
+        description="Toolbar additional CSS to theme, etc..",
+    )
+
+    toolbar_icon_style: str = Field(
+        default="",
+        description="Toolbar icons additional CSS to theme, etc..",
     )
