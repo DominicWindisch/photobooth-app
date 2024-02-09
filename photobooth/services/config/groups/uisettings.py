@@ -145,3 +145,7 @@ class GroupUiSettings(BaseModel):
         default="",
         description="Toolbar icons additional CSS to theme, etc..",
     )
+
+    TIMEOUT_TO_SLIDESHOW: int = Field(
+        default="300", description="Timeout in seconds after which an automatic slideshow starts if there's no user interaction on front page."
+    )
