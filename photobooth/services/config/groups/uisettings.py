@@ -54,6 +54,11 @@ class GroupUiSettings(BaseModel):
         description="Show button to admin center, usually only during setup.",
     )
 
+    TIMEOUT_TO_SLIDESHOW: int = Field(
+        default="300",
+        description="Timeout in seconds after which an automatic slideshow starts if there's no user interaction. Set to 0 to disable automatic start.",
+    )
+
     livestream_mirror_effect: bool = Field(
         default=True,
         description="Flip livestream horizontally to create a mirror effect feeling more natural to users.",
