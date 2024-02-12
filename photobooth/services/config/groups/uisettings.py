@@ -1,5 +1,8 @@
 """
-AppConfig class providing central config
+AppConfig class providing central config for ui
+
+These settings are 1:1 sent to the vue frontend.
+Remember to keep the settings in sync! Fields added here need to be added to the frontend also.
 
 """
 
@@ -13,6 +16,18 @@ class GroupUiSettings(BaseModel):
     """Personalize the booth's UI."""
 
     model_config = ConfigDict(title="Personalize the User Interface")
+
+    PRIMARY_COLOR: str = Field(
+        default="#196cb0",
+        description="Primary color (e.g. buttons, title bar).",
+        json_schema_extra={"ui_component": "ColorPicker"},
+    )
+
+    SECONDARY_COLOR: str = Field(
+        default="#b8124f",
+        description="Secondary color (admin interface, accents).",
+        json_schema_extra={"ui_component": "ColorPicker"},
+    )
 
     show_takepic_on_frontpage: bool = Field(
         default=True,
@@ -52,6 +67,11 @@ class GroupUiSettings(BaseModel):
         default=0.5,
         description="Offset in seconds, the smile-icon shall be shown.",
     )
+    TAKEPIC_MSG_TEXT: str = Field(
+        default="😃",
+        description="Message to display at the end of the capture countdown.",
+    )
+
     AUTOCLOSE_NEW_ITEM_ARRIVED: int = Field(
         default=30,
         description="Timeout in seconds a new item popup closes automatically.",
@@ -85,67 +105,4 @@ class GroupUiSettings(BaseModel):
     gallery_show_print: bool = Field(
         default=True,
         description="Show print button for items in gallery.",
-    )
-
-    gallery_show_image_number: bool = Field(
-        default=True,
-        description="Show image number in gallery title bar.",
-    )
-
-    gallery_show_filename: bool = Field(
-        default=False,
-        description="Show image file name in gallery title bar.",
-    )
-
-    TAKEPIC_MSG_TEXT: str = Field(default="😃", description="Message to display at the end of the capture countdown.")
-
-    PRIMARY_COLOR: str = Field(
-        default="#196cb0",
-        description="Primary color (e.g. buttons, title bar).",
-        json_schema_extra={"ui_component": "ColorPicker"},
-    )
-
-    SECONDARY_COLOR: str = Field(
-        default="#b8124f",
-        description="Secondary color (admin interface, accents).",
-        json_schema_extra={"ui_component": "ColorPicker"},
-    )
-
-    gallery_show_individual_images: bool = Field(
-        default=False,
-        description="Show individual images of collages/animations in the gallery (Note: changing this setting will not change visibility of already captured images).",
-    )
-
-    gallery_button_style: str = Field(
-        default="left: 6.7vw; top: 1.5vw; font-size: 3.6vh; height: 8vh; border-radius: 2vh;",
-        description="Gallery buttons additional CSS to reposition, theme, etc..",
-    )
-
-    gallery_button_icon_style: str = Field(
-        default="font-size: 6.5vh;",
-        description="Gallery button icons additional CSS to reposition, theme, etc..",
-    )
-
-    action_button_style: str = Field(
-        default="bottom: 1vw; aspect-ratio:1; height:21vh; font-size:5vh; margin: 0vh 0.5vw; border-radius: 2vh;",
-        description="Action buttons (take photo, take animation, etc.) additional CSS to reposition, theme, etc..",
-    )
-
-    action_button_icon_style: str = Field(
-        default="font-size: 13vh;",
-        description="Action button icons (take photo, take animation, etc.) additional CSS to reposition, theme, etc..",
-    )
-
-    toolbar_style: str = Field(
-        default="font-size:1.5vh;",
-        description="Toolbar additional CSS to theme, etc..",
-    )
-
-    toolbar_icon_style: str = Field(
-        default="",
-        description="Toolbar icons additional CSS to theme, etc..",
-    )
-
-    TIMEOUT_TO_SLIDESHOW: int = Field(
-        default="300", description="Timeout in seconds after which an automatic slideshow starts if there's no user interaction on front page."
     )

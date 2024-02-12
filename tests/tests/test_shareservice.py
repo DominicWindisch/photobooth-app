@@ -44,10 +44,11 @@ def _container() -> Container:
 
 
 # @pytest.fixture()
-@pytest.fixture(params=["start_job_1pic", "start_job_collage", "start_job_animation"])
+@pytest.fixture(params=["start_job_1pic", "start_job_collage", "start_job_animation", "start_or_stop_job_video"])
 def _mediaitem(request, _container: Container) -> MediaItem:
     job = getattr(_container.processing_service, request.param)
     job()
+    container.processing_service.wait_until_job_finished()
     yield _container.mediacollection_service.db_get_most_recent_mediaitem()
 
 
@@ -104,12 +105,9 @@ def test_shareservice_download_all_mediaitem_types(_mediaitem: MediaItem):
 
     # valid status code
     assert r.status_code == 200
-    # check we received a valid image also
-    try:
-        with Image.open(io.BytesIO(r.content)) as img:
-            img.verify()
-    except Exception as exc:
-        raise AssertionError(f"shareservice did not return valid image bytes, {exc}") from exc
+
+    # check we received something
+    assert len(r.content) > 0
 
 
 def test_shareservice_download_nonexistant_image(_container: Container):
