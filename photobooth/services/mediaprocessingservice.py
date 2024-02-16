@@ -137,7 +137,8 @@ class MediaprocessingService(BaseService):
 
     @staticmethod
     def create_config_collageimage(index: int = None) -> GroupMediaprocessingPipelineSingleImage:
-        cfg_collage = appconfig.mediaprocessing_pipeline_collage
+        print("############# Create config for index ", index)
+        cfg_collage = appconfig.mediaprocessing_pipelines_collage[index]
 
         # list only captured_images from merge_definition (excludes predefined)
         captured_images = [item for item in cfg_collage.canvas_merge_definition if not item.predefined_image]
@@ -156,7 +157,7 @@ class MediaprocessingService(BaseService):
 
     @staticmethod
     def create_config_animationimage(index: int = None) -> GroupMediaprocessingPipelineSingleImage:
-        cfg_animation = appconfig.mediaprocessing_pipeline_animation
+        cfg_animation = appconfig.mediaprocessing_pipelines_animation[index]
 
         # list only captured_images from merge_definition (excludes predefined)
         captured_images = [item for item in cfg_animation.sequence_merge_definition if not item.predefined_image]
@@ -200,6 +201,7 @@ class MediaprocessingService(BaseService):
 
         # if no config was provided externally, autocreate one
         if not config:
+            print("############# Getting config for index ", index)
             config = self.get_config_based_on_media_type(mediaitem, index)
 
         image = Image.open(mediaitem.path_full_unprocessed)
@@ -257,11 +259,11 @@ class MediaprocessingService(BaseService):
 
         return mediaitem
 
-    def create_collage(self, captured_mediaitems: list[MediaItem]) -> MediaItem:
+    def create_collage(self, captured_mediaitems: list[MediaItem], config_id: int) -> MediaItem:
         """apply preconfigured pipeline."""
 
         # get the local config
-        _config = appconfig.mediaprocessing_pipeline_collage
+        _config = appconfig.mediaprocessing_pipelines_collage[config_id]
 
         tms = time.time()
 
@@ -327,11 +329,11 @@ class MediaprocessingService(BaseService):
 
         return mediaitem
 
-    def create_animation(self, captured_mediaitems: list[MediaItem]) -> MediaItem:
+    def create_animation(self, captured_mediaitems: list[MediaItem], config_id: int) -> MediaItem:
         """apply preconfigured pipeline."""
 
         # get the local config
-        _config = appconfig.mediaprocessing_pipeline_animation
+        _config = appconfig.mediaprocessing_pipelines_animation[config_id]
 
         tms = time.time()
 
@@ -399,31 +401,32 @@ class MediaprocessingService(BaseService):
 
         return mediaitem
 
-    def number_of_captures_to_take_for_collage(self) -> int:
+    def number_of_captures_to_take_for_collage(self, index: int) -> int:
         """analyze the configuration and return the needed number of captures to take by camera.
         If there are fixed images given these do not count to the number to capture.
 
         Returns:
             int: number of captures
         """
-        if not appconfig.mediaprocessing_pipeline_collage.canvas_merge_definition:
+        print("tryna get ", index)
+        if not appconfig.mediaprocessing_pipelines_collage[index].canvas_merge_definition:
             raise PipelineError("collage definition not set up!")
 
-        collage_merge_definition = appconfig.mediaprocessing_pipeline_collage.canvas_merge_definition
+        collage_merge_definition = appconfig.mediaprocessing_pipelines_collage[index].canvas_merge_definition
 
         return self.get_number_of_captures_from_merge_definition(collage_merge_definition)
 
-    def number_of_captures_to_take_for_animation(self) -> int:
+    def number_of_captures_to_take_for_animation(self, index: int) -> int:
         """analyze the configuration and return the needed number of captures to take by camera.
         If there are fixed images given these do not count to the number to capture.
 
         Returns:
             int: number of captures
         """
-        if not appconfig.mediaprocessing_pipeline_animation.sequence_merge_definition:
+        if not appconfig.mediaprocessing_pipelines_animation[index].sequence_merge_definition:
             raise PipelineError("collage definition not set up!")
 
-        collage_merge_definition = appconfig.mediaprocessing_pipeline_animation.sequence_merge_definition
+        collage_merge_definition = appconfig.mediaprocessing_pipelines_animation[index].sequence_merge_definition
 
         return self.get_number_of_captures_from_merge_definition(collage_merge_definition)
 
