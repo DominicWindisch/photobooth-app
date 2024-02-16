@@ -127,10 +127,10 @@ class ProcessingService(BaseService):
         self.start_job(JobModel.Typ.image, 1)
 
     def start_job_collage(self, config_id):
-        self.start_job(JobModel.Typ.collage, self._mediaprocessing_service.number_of_captures_to_take_for_collage, config_id)
+        self.start_job(JobModel.Typ.collage, self._mediaprocessing_service.number_of_captures_to_take_for_collage(config_id), config_id)
 
     def start_job_animation(self, config_id):
-        self.start_job(JobModel.Typ.animation, self._mediaprocessing_service.number_of_captures_to_take_for_animation, config_id)
+        self.start_job(JobModel.Typ.animation, self._mediaprocessing_service.number_of_captures_to_take_for_animation(config_id), config_id)
 
     def start_or_stop_job_video(self, _):
         if self._state_machine is not None:
