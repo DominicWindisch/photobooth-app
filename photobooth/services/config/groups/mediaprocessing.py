@@ -400,3 +400,12 @@ class GroupMediaprocessingPipelinePrint(BaseModel):
     """Configure stages how to process mediaitem before printing on paper."""
 
     model_config = ConfigDict(title="Process mediaitem before printing on paper")
+
+    paper_width: int = Field(
+        default=148,
+        description="Width in mm of paper to print on.",
+    )
+    paper_height: int = Field(
+        default=100,
+        description="Height in mm of paper to print on.",
+    )
