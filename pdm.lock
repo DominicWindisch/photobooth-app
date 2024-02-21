@@ -5,7 +5,7 @@
 groups = ["default", "lint", "test"]
 strategy = ["cross_platform"]
 lock_version = "4.4.1"
-content_hash = "sha256:deb3707483eb9988d1087b17cdd1fdeedfb44f610fdc8b813c0197dc7497afae"
+content_hash = "sha256:5deeed8e7e26fa7f3e14b6df5de86c7fc54986ae90fb3550c4959078cecfe0a0"
 
 [[package]]
 name = "annotated-types"
@@ -939,14 +939,6 @@ dependencies = [
 ]
 files = [
     {file = "pyvips-2.2.2.tar.gz", hash = "sha256:2aa169f2130e8f9d9b0d442fad10a70ff1c3d1bb6add099ce058987faa1f6829"},
-]
-
-[[package]]
-name = "rectpack"
-version = "0.2.2"
-summary = "2D Rectangle packing library"
-files = [
-    {file = "rectpack-0.2.2.tar.gz", hash = "sha256:15e383505fdfbaeb55ec640a5825d9ca2ce89019a6cdd552d6e57ec36c68ba2a"},
 ]
 
 [[package]]

@@ -97,3 +97,11 @@ class GroupHardwareInputOutput(BaseModel):
         default=20,
         description="Block queue print until time is passed. Time in seconds.",
     )
+    print_medium_height_mm: float = Field(
+        default=100,
+        description="Height of print medium in mm",
+    )
+    print_medium_width_mm: float = Field(
+        default=148,
+        description="Width of print medium in mm",
+    )

@@ -12,9 +12,9 @@ print_router = APIRouter(
 )
 
 
-def _print(mediaitem):
+def _print(mediaitems):
     try:
-        container.printing_service.print(mediaitem=mediaitem)
+        container.printing_service.print(mediaitems=mediaitems)
     except BlockingIOError as exc:
         raise HTTPException(
             status_code=status.HTTP_425_TOO_EARLY,
@@ -36,10 +36,14 @@ def _print(mediaitem):
 @print_router.get("/latest")
 def api_print_latest():
     latest_mediaitem = container.mediacollection_service.db_get_most_recent_mediaitem()
-    _print(mediaitem=latest_mediaitem)
+    _print(mediaitems=[latest_mediaitem])
 
 
-@print_router.get("/item/{id}")
-def api_print_item_id(id: str):
-    requested_mediaitem: MediaItem = container.mediacollection_service.db_get_image_by_id(id)
-    _print(mediaitem=requested_mediaitem)
+@print_router.get("/item/{comma_separated_ids}")
+def api_print_item_id(comma_separated_ids: str):
+    ids = comma_separated_ids.split(",")
+    requested_mediaitems: list[MediaItem] = []
+    for id in ids:
+        requested_mediaitems.append(container.mediacollection_service.db_get_image_by_id(id))
+
+    _print(mediaitems=requested_mediaitems)

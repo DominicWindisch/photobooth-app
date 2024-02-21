@@ -13,6 +13,7 @@ from .mediacollection.mediaitem import (
     PATH_ORIGINAL,
     PATH_PREVIEW,
     PATH_PREVIEW_UNPROCESSED,
+    PATH_PRINT,
     PATH_THUMBNAIL,
     PATH_THUMBNAIL_UNPROCESSED,
     MediaItem,
@@ -48,6 +49,7 @@ class MediacollectionService(BaseService):
         os.makedirs(f"{PATH_FULL_UNPROCESSED}", exist_ok=True)
         os.makedirs(f"{PATH_PREVIEW_UNPROCESSED}", exist_ok=True)
         os.makedirs(f"{PATH_THUMBNAIL_UNPROCESSED}", exist_ok=True)
+        os.makedirs(f"{PATH_PRINT}", exist_ok=True)
 
         self._init_db()
 
