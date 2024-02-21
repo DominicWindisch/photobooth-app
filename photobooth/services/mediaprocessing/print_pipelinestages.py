@@ -84,7 +84,8 @@ class AutoLayoutCreator:
 
             if not image_ok:
                 self.page_list.append(Page(self.page_width, self.page_height, self.spacing))
-                assert self.page_list[-1].fit_image(image)
+                addedToEmptyPage = self.page_list[-1].fit_image(image)
+                assert addedToEmptyPage
 
         return self.page_list
 
