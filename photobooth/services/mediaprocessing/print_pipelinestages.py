@@ -38,7 +38,7 @@ class Page:
 
             self.image_list.append(image)
 
-            # update space left
+            # update reamining space on this page
             if image.width == self.width:
                 self.min_y += image.height + self.spacing
             if image.height == self.height:
@@ -74,7 +74,7 @@ class AutoLayoutCreator:
 
     def create_layout(self):
         """Try to find a page into which the image can be fit. If there is none, create a new page."""
-        # iterate images
+
         for image in self.image_list:
             image_ok = False
             for page in self.page_list:
@@ -98,7 +98,7 @@ def merge_print_items_stage(
         1. Rotate the image to fit the print mediums aspect ratio
         2. Resize the image to fill the print mediums complete height or width
         3. Automatically distribute these images amongst however many pages needed
-        4. Returns a list of images (one per page) to print
+        4. Create a new image for each page from the layout
 
     Arguments:
         print_items: list of the images to print
@@ -111,13 +111,10 @@ def merge_print_items_stage(
         list of images (one per page) to print
     """
 
-    # fit images into a given page size
-    # if necessary, return multiple pages to print
-
     # setup page canvas
-    page_width_px = int((page_width_mm * dpi) / 25.4)
-    page_height_px = int((page_height_mm * dpi) / 25.4)
-    item_spacing_px = int((item_spacing_mm * dpi) / 25.4)
+    page_width_px = int(round((page_width_mm * dpi) / 25.4))
+    page_height_px = int(round((page_height_mm * dpi) / 25.4))
+    item_spacing_px = int(round((item_spacing_mm * dpi) / 25.4))
     page_orientation_landscape = page_width_mm > page_height_mm
 
     auto_layout = AutoLayoutCreator(page_width_px, page_height_px, item_spacing_px)
@@ -126,7 +123,7 @@ def merge_print_items_stage(
     for index, item in enumerate(print_items):
         _image = item
 
-        # resize items to fill page optimally.
+        # resize items to fill page optimally
         item_orientation_landscape: bool = _image.width > _image.height
 
         if item_orientation_landscape != page_orientation_landscape:
@@ -150,7 +147,7 @@ def merge_print_items_stage(
 
     pages: list[Image.Image] = []
     for page_num, page_layout in enumerate(page_layouts):
-        logger.info(f"Items on page {page_num} ({page_layout.width}x{page_layout.height}): ")  # Bin id if it has one
+        logger.info(f"Items on page {page_num} ({page_layout.width}x{page_layout.height}): ")
 
         pages.append(Image.new("RGB", (page_width_px, page_height_px), "white"))  # empty page, white to not print anything on empty space
 
