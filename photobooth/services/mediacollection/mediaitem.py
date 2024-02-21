@@ -36,6 +36,7 @@ PATH_THUMBNAIL_UNPROCESSED = "".join([PATH_UNPROCESSED, "thumbnail/"])
 PATH_FULL = "".join([PATH_PROCESSED, "full/"])
 PATH_PREVIEW = "".join([PATH_PROCESSED, "preview/"])
 PATH_THUMBNAIL = "".join([PATH_PROCESSED, "thumbnail/"])
+PATH_PRINT = "".join([PATH_PROCESSED, "print/"])
 
 
 class MediaItemTypes(str, Enum):
