@@ -1,6 +1,7 @@
 """
 Handle all media collection related functions
 """
+
 import io
 import logging
 import os
@@ -35,7 +36,8 @@ from .mediaprocessing.image_pipelinestages import (
 )
 from .sseservice import SseService
 
-turbojpeg = TurboJPEG("C:/libjpeg-turbo-gcc64/bin/libturbojpeg.dll")
+# turbojpeg = TurboJPEG("C:/libjpeg-turbo-gcc64/bin/libturbojpeg.dll")
+turbojpeg = TurboJPEG()
 logger = logging.getLogger(__name__)
 
 

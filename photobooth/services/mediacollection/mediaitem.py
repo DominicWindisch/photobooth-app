@@ -1,6 +1,7 @@
 """
 Handle all media collection related functions
 """
+
 import hashlib
 import io
 import logging
@@ -19,7 +20,7 @@ from turbojpeg import TurboJPEG
 from ..config import appconfig
 
 logger = logging.getLogger(__name__)
-turbojpeg = TurboJPEG("C:/libjpeg-turbo-gcc64/bin/libturbojpeg.dll")
+turbojpeg = TurboJPEG()
 
 DATA_PATH = "./media/"
 # as from image source
