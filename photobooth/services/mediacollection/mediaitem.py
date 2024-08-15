@@ -19,7 +19,7 @@ from turbojpeg import TurboJPEG
 from ..config import appconfig
 
 logger = logging.getLogger(__name__)
-turbojpeg = TurboJPEG()
+turbojpeg = TurboJPEG("C:/libjpeg-turbo-gcc64/bin/libturbojpeg.dll")
 
 DATA_PATH = "./media/"
 # as from image source
